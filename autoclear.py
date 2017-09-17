@@ -8,6 +8,12 @@ async def autoclear(message):
   text.pop(0)
 
   if len(text) == 0:
+    if message.channel.id in autoclears.keys():
+      del autoclears[message.channel.id]
+      await client.send_message(message.channel, 'Autoclearing disabled for this channel.')
+      
+      return
+
     autoclears[message.channel.id] = 10
     await client.send_message(message.channel, '10 second autoclearing has been enabled for this channel.')
 

@@ -70,11 +70,11 @@ async def on_message(message): ## when a message arrives at the bot ##
   if message.content in [None, '']:
     return
 
+  await validate_cmd(message)
+
   if message.channel.id in autoclears.keys():
     await asyncio.sleep(autoclears[message.channel.id])
     await client.delete_message(message)
-
-  await validate_cmd(message)
 
 try:
   with open('token','r') as token_f:
