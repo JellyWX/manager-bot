@@ -4,7 +4,6 @@ import os
 import sys
 
 from globalvars import *
-from get_patrons import get_patrons
 
 async def update(message):
   await client.change_presence(game=discord.Game(name='updating... hold on tight!'))
