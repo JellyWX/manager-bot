@@ -79,10 +79,8 @@ async def on_message(message): ## when a message arrives at the bot ##
 
   if message.author.id in users.keys():
     if time.time() - users[message.author.id] < 0.75:
-      print('quick message time...')
 
       if message.author.id in warnings.keys():
-        print('user already has a warning.....')
 
         warnings[message.author.id] += 1
         if warnings[message.author.id] == 3:
@@ -102,7 +100,6 @@ async def on_message(message): ## when a message arrives at the bot ##
       users[message.author.id] = time.time()
 
     else:
-      print('long delay. user was removed from muting.')
       users[message.author.id] = time.time()
       warnings[message.author.id] = 0
 
