@@ -77,6 +77,39 @@ async def on_message(message): ## when a message arrives at the bot ##
     await asyncio.sleep(autoclears[message.channel.id])
     await client.delete_message(message)
 
+  if message.author.id in users.keys():
+    if time.time() - users[message.author.id] < 0.75:
+      print('quick message time...')
+
+      if message.author.id in warnings.keys():
+        print('user already has a warning.....')
+
+        warnings[message.author.id] += 1
+        if warnings[message.author.id] == 3:
+          await client.send_message(message.channel, 'Please slow down {}'.format(message.author.mention))
+
+        elif warnings[message.author.id] == 5:
+
+          overwrite = discord.PermissionOverwrite()
+          overwrite.send_messages = False
+          await client.edit_channel_permissions(message.channel, message.author, overwrite)
+          await client.send_message(message.channel, '{}, you\'ve been muted!'.format(message.author.mention))
+
+      else:
+        print('user added to warning list')
+        warnings[message.author.id] = 1
+
+      users[message.author.id] = time.time()
+
+    else:
+      print('long delay. user was removed from muting.')
+      users[message.author.id] = time.time()
+      warnings[message.author.id] = 0
+
+  else:
+    print('registered user for auto-muting')
+    users[message.author.id] = time.time()
+
 try:
   with open('token','r') as token_f:
     token = token_f.read().strip('\n')

@@ -7,6 +7,8 @@ client = discord.Client() ## defined the client
 prefix = {}
 channel_blacklist = []
 autoclears = {}
+users = {}
+warnings = {}
 
 try:
   with open('prefix.json','r') as f:
