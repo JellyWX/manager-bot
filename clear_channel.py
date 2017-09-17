@@ -4,6 +4,10 @@ import discord
 from globalvars import *
 
 async def clear_channel(message):
+  if not message.author.server_permissions.administrator:
+    await client.send_message(message.channel, 'You must be an admin to run this command.')
+    return
+    
   await client.send_message(message.channel, 'Please note that this process is very slow on messages older than 14 days.\n**ARE YOU SURE YOU WANT TO CLEAR THIS CHANNEL? (y/N)**')
   t = await client.wait_for_message(author=message.author,channel=message.channel)
 
