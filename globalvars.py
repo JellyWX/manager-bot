@@ -16,6 +16,13 @@ except FileNotFoundError:
   print('no prefix file found')
 
 try:
+  with open('autoclears.json','r') as f:
+    autoclears = json.load(f)
+
+except FileNotFoundError:
+  print('no prefix file found')
+
+try:
   with open('blacklist','r') as f:
     bl = f.read().strip('\n')
     bl = ''.join(bl)

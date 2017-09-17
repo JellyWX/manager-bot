@@ -1,5 +1,6 @@
 import discord
 import asyncio
+import json
 
 from globalvars import *
 
@@ -11,7 +12,7 @@ async def autoclear(message):
     if message.channel.id in autoclears.keys():
       del autoclears[message.channel.id]
       await client.send_message(message.channel, 'Autoclearing disabled for this channel.')
-      
+
       return
 
     autoclears[message.channel.id] = 10
@@ -58,3 +59,6 @@ async def autoclear(message):
 
   else:
     await client.send_message(message.channel, 'Too many parameters provided. Please provide a clearing timer (a decimal number) and a channel name')
+
+  with open('autoclears.json','w') as f:
+    json.dump(autoclears,f)

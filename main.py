@@ -1,6 +1,7 @@
 import discord
 import asyncio
-from sys import argv
+import time
+from sys import argv, executable
 
 from globalvars import *
 
@@ -87,4 +88,10 @@ except FileNotFoundError:
     token = argv[1]
 
 else:
-  client.run(token)
+  try:
+    client.run(token)
+  except:
+    print('Error detected. Restarting in 15 seconds.')
+    time.sleep(15)
+
+    os.execl(executable, executable, *argv)
